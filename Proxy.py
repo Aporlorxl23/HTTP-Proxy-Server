@@ -13,13 +13,16 @@ class Proxy:
         self.Attacker_Response = b"<img src=x onerror=alert`Aporlorxl23_HTTP_Proxy_Server`>"
         self.DEBUG = False
         self.Attacker_Mode = False
+        self.LOG = [False,"Proxy-Log.txt"]
+        self.File = ""
 
     def Start_Server(self):
         try:
             Socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
             Socket.bind((self.Ip,self.Port))
             Socket.listen(self.BACKLOG)
-
+            if self.LOG[0] == True:
+                self.File = open(self.LOG[1],"a")
             while 1:
                 Connection, Connection_Addr = Socket.accept()
                 thread.start_new_thread(self.Send_Response, (Connection, Connection_Addr))
@@ -31,11 +34,11 @@ class Proxy:
         except Exception as Error:
             print("[-] Could Not Start Program:", Error)
             sys.exit(1)
-
     def Send_Response(self,Connection, Connection_Addr):
-
         try:
             Request = Connection.recv(self.MAX_DATA_RECV)
+            if self.LOG[0] == True:
+                self.File.write(Request)
             AllData = Request.split()
             try:
                 print("[+] Request Method: "+str(AllData[0])+" Url: "+str(AllData[1])+" "+str(AllData[2]))
