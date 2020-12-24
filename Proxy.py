@@ -10,7 +10,7 @@ class Proxy:
         self.Port = int(Port) # Set Port Number
         self.BACKLOG = 50 # A maximum of 50 connections will wait in the back
         self.MAX_DATA_RECV = 4096
-        self.Attacker_Response = b"<img src=x onerror=alert`Aporlorxl23_HTTP_Proxy_Server`>"
+        self.Attacker_Response = b"<script>alert`Aporlorxl23_HTTP_Proxy_Server`</script>"
         self.DEBUG = False
         self.Attacker_Mode = False
         self.LOG = [False,"Proxy-Log.txt"]
