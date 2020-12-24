@@ -26,6 +26,12 @@ class Proxy:
             while 1:
                 Connection, Connection_Addr = Socket.accept()
                 thread.start_new_thread(self.Send_Response, (Connection, Connection_Addr))
+
+        except KeyboardInterrupt:
+            if Socket:
+                Socket.close()
+            print("[?] KeyboardInterrupt (CTRL+C) Force-Quit!")
+            sys.exit(1)
         except socket.error as Message:
             if Socket:
                 Socket.close()
